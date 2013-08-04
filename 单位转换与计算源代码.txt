@@ -1,0 +1,85 @@
+#include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <map>
+#include <fstream>
+#include <cstring>
+#include <sstream>
+using namespace std;
+
+map<string , double> unit;
+char in[50] = {0};
+
+void initial(){
+    unit["meter"] = 1.0;
+    unit["meters"] = 1.0;
+    unit["mile"] = 1.0;
+    unit["miles"] = 1.0;
+    unit["yard"] = 1.0;
+    unit["yards"] = 1.0;
+    unit["inch"] = 1.0;
+    unit["inches"] = 1.0;
+    unit["foot"] = 1.0;
+    unit["feet"] = 1.0;
+    unit["fath"] = 1.0;
+    unit["faths"] = 1.0;
+    unit["furlong"] = 1.0;
+    unit["furlongs"] = 1.0;
+}
+
+void readrules(){
+    ifstream cin(in);
+    ofstream cout;
+    cout.open("output.txt" ,ios::app);
+    string rule , unit1 , unit2;
+    double n1 , n2;
+    char c;
+    map<string , double>::iterator it;
+    while(getline(cin , rule) && rule.length() != 0){
+        stringstream ss;
+        ss << rule;
+        ss >> n1 >> unit1 >> c >> n2 >> unit2;
+        it = unit.find(unit1);
+        if(it != unit.end()){
+            it -> second = n2;
+            it++;
+            it -> second = n2;
+        }else{
+            unit[unit1] = n2;
+        }
+    }
+    cout << "conquerheaven@126.com" << endl << endl;
+    double n = 0, result = 0;;
+    string str , Unit;
+    char op;
+    while(getline(cin , str)){
+        stringstream ss;
+        ss << str;
+        ss >> n >> Unit;
+        result = 0;
+        result += n*unit[Unit];
+        while(!ss.eof()){
+            ss >> op >> n >> Unit;
+            if(op == '+'){
+                result += n*unit[Unit];
+            }
+            if(op == '-'){
+                result -= n*unit[Unit];
+            }
+        }
+        cout << fixed << showpoint;
+        cout << setprecision(2) << result << " m" << endl;
+    }
+    cin.close();
+    cout.close();
+}
+        
+
+int main(){
+    initial();
+    cout << "Please enter the path of the input file: ";
+    cin >> in;
+    readrules();
+    cout << "Complished!" << endl;
+    return 0;
+}
