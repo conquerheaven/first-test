@@ -80,6 +80,6 @@ int main(){
     cout << "Please enter the path of the input file: ";
     cin >> in;
     readrules();
-    cout << "Complished!" << endl;
+    cout << "Accomplished!" << endl;
     return 0;
 }
